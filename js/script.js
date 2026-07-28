@@ -71,11 +71,18 @@ function renderCart() {
     const li = document.createElement('li');
     li.className = 'cart-item';
     li.innerHTML = `
-      <div>
+      <div class="cart-item-main">
         <strong>${item.name}</strong>
-        <span>${item.quantity} x ${formatRupiah(item.price)}</span>
+        <span>${formatRupiah(item.price)} / pcs</span>
       </div>
-      <span>${formatRupiah(item.price * item.quantity)}</span>
+      <div class="cart-item-controls">
+        <div class="quantity-controls">
+          <button class="qty-btn" data-id="${item.id}" data-action="decrease" aria-label="Kurangi jumlah ${item.name}">−</button>
+          <span class="qty-value">${item.quantity}</span>
+          <button class="qty-btn" data-id="${item.id}" data-action="increase" aria-label="Tambah jumlah ${item.name}">+</button>
+        </div>
+        <span class="item-total">${formatRupiah(item.price * item.quantity)}</span>
+      </div>
     `;
     cartItems.appendChild(li);
     total += item.price * item.quantity;
@@ -102,11 +109,38 @@ function addToCart(productId) {
   renderCart();
 }
 
+function updateCartQuantity(productId, delta) {
+  const existingItem = cart.find((item) => item.id === productId);
+
+  if (!existingItem) {
+    return;
+  }
+
+  existingItem.quantity += delta;
+
+  if (existingItem.quantity <= 0) {
+    cart = cart.filter((item) => item.id !== productId);
+  }
+
+  renderCart();
+}
+
 productGrid.addEventListener('click', (event) => {
   const button = event.target.closest('.add-to-cart');
   if (button) {
     addToCart(Number(button.dataset.id));
   }
+});
+
+cartItems.addEventListener('click', (event) => {
+  const button = event.target.closest('.qty-btn');
+
+  if (!button) {
+    return;
+  }
+
+  const delta = button.dataset.action === 'increase' ? 1 : -1;
+  updateCartQuantity(Number(button.dataset.id), delta);
 });
 
 searchInput.addEventListener('input', () => {
