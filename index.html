@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Katalog E-Commerce</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Toko Online</p>
+          <h1>NovaStore</h1>
+        </div>
+        <nav aria-label="Navigasi utama">
+          <a href="#produk">Produk</a>
+          <a href="#keranjang">Keranjang</a>
+        </nav>
+      </header>
+
+      <main class="layout">
+        <section class="catalog-section" id="produk" aria-labelledby="catalog-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Katalog Produk</p>
+              <h2 id="catalog-title">Temukan barang favoritmu</h2>
+            </div>
+            <label class="search-box" for="searchInput">
+              <span aria-hidden="true">🔎</span>
+              <input type="search" id="searchInput" placeholder="Cari produk..." />
+            </label>
+          </div>
+
+          <div id="productGrid" class="product-grid" aria-live="polite"></div>
+        </section>
+
+        <aside class="cart-section" id="keranjang">
+          <div class="cart-card">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Keranjang</p>
+                <h2>Belanja Anda</h2>
+              </div>
+            </div>
+            <ul id="cartItems" class="cart-items"></ul>
+            <div class="cart-summary">
+              <div class="summary-row">
+                <span>Total</span>
+                <strong id="cartTotal">Rp 0</strong>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="site-footer">
+        <p>NovaStore © 2026 - Belanja simpel, cepat, dan nyaman.</p>
+      </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
